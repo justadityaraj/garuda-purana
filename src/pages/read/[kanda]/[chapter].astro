@@ -1,5 +1,6 @@
 ---
 import Base from "../../../layouts/Base.astro";
+import hi from "../../../i18n/hi.json";
 import "../../../styles/global.css";
 
 export async function getStaticPaths() {
@@ -52,7 +53,7 @@ const written = doc.verses.filter((v) => (v.hinglish || "").trim()).length;
               {v.hinglish}
             </div>
           ) : (
-            <p class="pending">Not retold yet &mdash; this verse is still being read.</p>
+            <p class="pending">{(hi.verse_pending || "").trim() || "Hinglish not written yet"}</p>
           )}
         </article>
       ))}

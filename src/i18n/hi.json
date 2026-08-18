@@ -1,0 +1,28 @@
+{
+  "_readme": "Hindi copy for the site chrome. Empty string = not written yet; the page renders English alone and skips the Hindi line entirely, so a blank here is never broken, just unfinished. Only fill these in with Hindi you would actually say out loud.",
+
+  "title": "गरुड़ पुराण",
+
+  "hero_lede": "",
+
+  "chapters_heading": "अध्याय",
+  "layers_heading": "",
+  "running_tally": "",
+
+  "layer_sanskrit_label": "संस्कृत",
+  "layer_sanskrit_body": "",
+  "layer_hindi_label": "हिन्दी",
+  "layer_hindi_body": "",
+  "layer_hinglish_label": "हिंग्लिश",
+  "layer_hinglish_body": "",
+
+  "myth_claim": "",
+  "myth_para_1": "",
+  "myth_para_2": "",
+
+  "kanda_achar": "आचार काण्ड",
+  "kanda_preta": "प्रेत काण्ड",
+  "kanda_brahma": "ब्रह्म काण्ड",
+
+  "verse_pending": ""
+}

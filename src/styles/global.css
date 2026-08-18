@@ -326,3 +326,10 @@ body {
   color: var(--ink-faint);
   padding: 1rem 0;
 }
+
+/* English on the reading page was sized as secondary caption text; it has to
+   be comfortably readable in its own right. */
+.pending { font-size: 1rem; opacity: 0.75; }
+.meta { font-size: 0.92rem; }
+.sources { font-size: 0.9rem; line-height: 1.85; }
+.opener .translit.en { font-size: 1.1rem; }

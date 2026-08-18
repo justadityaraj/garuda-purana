@@ -1,14 +1,15 @@
 ---
 import Base from "../layouts/Base.astro";
+import hi from "../i18n/hi.json";
 import "../styles/home.css";
 
 const files = import.meta.glob("../../data/*/*.json", { eager: true });
-const KANDA = {
-  achar: { hi: "आचार काण्ड", en: "Achar Kanda" },
-  preta: { hi: "प्रेत काण्ड", en: "Preta Kanda" },
-  brahma: { hi: "ब्रह्म काण्ड", en: "Brahma Kanda" },
-};
+const KANDA_EN = { achar: "Achar Kanda", preta: "Preta Kanda", brahma: "Brahma Kanda" };
 const ORDER = ["achar", "preta", "brahma"];
+
+// Hindi is optional everywhere. A blank string means "not written yet" and the
+// line is skipped — never rendered empty, never faked.
+const t = (key) => (hi[key] || "").trim();
 
 const chapters = Object.values(files).sort(
   (a, b) => ORDER.indexOf(a.kanda) - ORDER.indexOf(b.kanda) || a.chapter - b.chapter,
@@ -20,26 +21,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 <Base
   title="गरुड़ पुराण — Garuda Purana, openly published with a Hinglish retelling"
-  description="गरुड़ पुराण — संस्कृत, हिन्दी और हिंग्लिश में। The Garuda Purana, openly published with a plain-language Hinglish retelling."
+  description="The Garuda Purana, openly published, with a plain-language Hinglish retelling. No, it is not only read after a death."
 >
   <div class="home">
-    <!-- hero -->
     <section class="hero">
       <div class="hero-art" data-parallax></div>
       <div class="shell hero-copy">
         <p class="roman" data-rise>Garuda Purana</p>
-        <h1 data-rise>गरुड़ पुराण</h1>
-        <p class="lede" data-rise>पढ़ा जा रहा है, दोबारा कहा जा रहा है — एक-एक श्लोक करके।</p>
+        <h1 data-rise>{t("title")}</h1>
+        <p class="lede" data-rise>
+          {t("hero_lede") || "Being read, and retold in plain language — one verse at a time."}
+        </p>
       </div>
       <div class="scroll-cue">scroll</div>
     </section>
 
     <div class="shell">
-      <!-- chapters -->
       <section class="band" id="chapters">
         <header class="band-head reveal">
-          <h2 class="hi">अध्याय</h2>
-          <p class="en">Chapters</p>
+          {t("chapters_heading") && <h2 class="hi">{t("chapters_heading")}</h2>}
+          <p class:list={["en", { lead: !t("chapters_heading") }]}>Chapters</p>
         </header>
 
         <ul class="ch-list">
@@ -48,8 +49,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               <a href={`${base}/read/${c.kanda}/${c.chapter}/`}>
                 <span class="n">{c.chapter}</span>
                 <span class="name">
-                  {KANDA[c.kanda].hi}
-                  <small>{KANDA[c.kanda].en}{c.title?.en ? ` — ${c.title.en}` : ""}</small>
+                  {t(`kanda_${c.kanda}`) || KANDA_EN[c.kanda]}
+                  <small>{KANDA_EN[c.kanda]}{c.title?.en ? ` — ${c.title.en}` : ""}</small>
                 </span>
                 <span class="tally">
                   {c.verses.filter((v) => (v.hinglish || "").trim()).length}/{c.verses.length}
@@ -60,75 +61,64 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </ul>
 
         <p class="running reveal">
-          <b>{written}</b> / {allVerses.length} श्लोक अब तक हिंग्लिश में — {written} of {allVerses.length} verses
-          retold so far.
+          <b>{written}</b> of {allVerses.length} verses retold so far.
         </p>
       </section>
 
-      <!-- layers -->
       <section class="band" id="layers">
         <header class="band-head reveal">
-          <h2 class="hi">हर श्लोक, तीन रूपों में</h2>
-          <p class="en">Every verse, three ways</p>
+          {t("layers_heading") && <h2 class="hi">{t("layers_heading")}</h2>}
+          <p class:list={["en", { lead: !t("layers_heading") }]}>Every verse, three ways</p>
         </header>
 
         <div class="layer-grid">
           <div class="layer reveal">
-            <div class="tag">संस्कृत</div>
+            <div class="tag">{t("layer_sanskrit_label")}</div>
             <div class="body">
-              <span class="hi">मूल श्लोक, देवनागरी में।</span>
+              {t("layer_sanskrit_body") && <span class="hi">{t("layer_sanskrit_body")}</span>}
               <span class="en">The original verse in Devanagari.</span>
             </div>
           </div>
           <div class="layer reveal">
-            <div class="tag">हिन्दी</div>
+            <div class="tag">{t("layer_hindi_label")}</div>
             <div class="body">
-              <span class="hi">गीता प्रेस का अनुवाद, उनकी अनुमति से।</span>
+              {t("layer_hindi_body") && <span class="hi">{t("layer_hindi_body")}</span>}
               <span class="en">The Gita Press translation, used with their permission.</span>
             </div>
           </div>
           <div class="layer reveal">
-            <div class="tag">हिंग्लिश</div>
+            <div class="tag">{t("layer_hinglish_label")}</div>
             <div class="body">
-              <span class="hi">आसान भाषा में — जैसे कोई दोस्त समझा रहा हो। अनुवाद नहीं, बल्कि दोबारा कहना — और हमेशा हिन्दी के साथ, उसकी जगह नहीं।</span>
-              <span class="en">Plain language, the way a friend would explain it. A retelling, not a translation — always shown beside the Hindi, never instead of it.</span>
+              {t("layer_hinglish_body") && <span class="hi">{t("layer_hinglish_body")}</span>}
+              <span class="en">
+                Plain language, the way a friend would explain it. A retelling, not a translation —
+                always shown beside the Hindi, never instead of it.
+              </span>
             </div>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- myth -->
     <section class="myth-band">
       <div class="myth-plate" data-parallax-slow>
         <img src={`${base}/img/garuda-ravivarma-1910.jpg`} alt="Vishnu riding Garuda, Ravi Varma studio lithograph, c. 1910" />
       </div>
       <div class="shell">
         <div class="myth-inner">
-          <p class="myth-claim reveal">
-            गरुड़ पुराण का लगभग <b>90%</b> हिस्सा मृत्यु से जुड़ा ही नहीं है।
-          </p>
-          <p class="myth-claim-en reveal">
-            Around 90% of the Garuda Purana has nothing to do with death.
+          {t("myth_claim") && <p class="myth-claim reveal">{t("myth_claim")}</p>}
+          <p class:list={["myth-claim-en reveal", { lead: !t("myth_claim") }]}>
+            Around <b>90%</b> of the Garuda Purana has nothing to do with death.
           </p>
 
           <div class="myth-body">
-            <p class="hi reveal">
-              बहुत से लोग मानते हैं कि यह ग्रंथ सिर्फ़ किसी की मृत्यु के बाद ही पढ़ा जाता है, या इसे पढ़ना
-              अशुभ होता है। यह सच नहीं है — और इसी डर ने लोगों को एक ऐसी किताब से दूर रखा है जिसे कोई भी
-              पढ़ सकता है।
-            </p>
+            {t("myth_para_1") && <p class="hi reveal">{t("myth_para_1")}</p>}
             <p class="en reveal">
               Many people believe this text is only read after a death, or that reading it invites
               misfortune. It is not true, and that fear has kept people away from a book anyone is
               free to read.
             </p>
-            <p class="hi reveal">
-              इसका बड़ा हिस्सा आचार काण्ड है — सृष्टि, नीति, आयुर्वेद, और रत्नों पर एक लंबा प्रकरण।
-              मृत्यु और परलोक की बातें प्रेत काण्ड में हैं, अंत के पास। ज़्यादातर लोगों ने सिर्फ़ वही
-              हिस्सा देखा है, अक्सर <em>सारोद्धार</em> के ज़रिये — सोलह अध्यायों का एक संक्षेप, जिसे पूरा
-              पुराण समझ लिया जाता है। भ्रम वहीं से शुरू होता है।
-            </p>
+            {t("myth_para_2") && <p class="hi reveal">{t("myth_para_2")}</p>}
             <p class="en reveal">
               The bulk of it is the Achar Kanda — cosmology, ethics, ayurveda, and a long section on
               gemstones. The death material sits in the Preta Kanda, near the end. Most people have
@@ -142,11 +132,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
     <div class="shell">
       <footer class="foot">
-        संस्कृत — <a href="https://gretil.sub.uni-goettingen.de/">GRETIL</a> (वेंकटेश्वर संस्करण)।
-        हिन्दी — गीता प्रेस, <em>संक्षिप्त गरुड़ पुराण</em>, अनुमति सहित।
+        Sanskrit from <a href="https://gretil.sub.uni-goettingen.de/">GRETIL</a> (Venkatesvara
+        recension). Hindi from the Gita Press <em>Sankshipt Garud Puran</em>, used with permission.
         <br />
-        Artwork: <em>Vishnu Carried by Garuda Through a Stormy Sky</em>, Kotah, 1775 — and a Ravi Varma
-        studio lithograph, c. 1910. Both public domain via Wikimedia Commons.
+        Artwork: <em>Vishnu Carried by Garuda Through a Stormy Sky</em>, Kotah, 1775 — and a Ravi
+        Varma studio lithograph, c. 1910. Both public domain via Wikimedia Commons.
         <br />
         Code MIT, original writing CC BY-SA 4.0 —
         <a href="https://github.com/justadityaraj/garuda-purana/blob/main/NOTICE.md">NOTICE.md</a>
@@ -166,52 +156,37 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
     // Content is visible by default in CSS. Only once GSAP has actually loaded
     // do we mark the document and hide things to animate them in — so a JS
-    // failure, a blocked bundle, or reduced-motion leaves a fully readable
-    // page rather than a blank one.
+    // failure, a blocked bundle, or reduced-motion leaves a readable page.
     if (!still) {
       document.documentElement.classList.add("js-anim");
 
       gsap.to("[data-rise]", {
-        y: 0,
-        opacity: 1,
-        duration: 1.15,
-        ease: "power3.out",
-        stagger: 0.13,
-        delay: 0.15,
+        y: 0, opacity: 1, duration: 1.15, ease: "power3.out", stagger: 0.13, delay: 0.15,
       });
 
-      // The plate drifts slower than the page, so the bird reads as holding
-      // position while the text moves past it.
       gsap.to("[data-parallax]", {
-        yPercent: 17,
-        ease: "none",
+        yPercent: 17, ease: "none",
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
       });
 
       gsap.to("[data-parallax-slow]", {
-        yPercent: -13,
-        ease: "none",
+        yPercent: -13, ease: "none",
         scrollTrigger: { trigger: ".myth-band", start: "top bottom", end: "bottom top", scrub: true },
       });
 
       gsap.utils.toArray(".reveal").forEach((el) => {
         gsap.to(el, {
-          y: 0,
-          opacity: 1,
-          duration: 0.85,
-          ease: "power2.out",
+          y: 0, opacity: 1, duration: 0.85, ease: "power2.out",
           scrollTrigger: { trigger: el, start: "top 92%", once: true },
         });
       });
 
       gsap.to(".scroll-cue", {
-        opacity: 0,
-        duration: 0.4,
+        opacity: 0, duration: 0.4,
         scrollTrigger: { trigger: ".hero", start: "top -60", toggleActions: "play none none reverse" },
       });
 
-      // Anything still hidden after load (trigger never fired, viewport quirk,
-      // print) gets shown rather than left blank.
+      // Anything still hidden after load gets shown rather than left blank.
       window.addEventListener("load", () => {
         ScrollTrigger.refresh();
         setTimeout(() => {

@@ -283,3 +283,73 @@
 @media print {
   .reveal, [data-rise] { opacity: 1 !important; transform: none !important; }
 }
+
+/* ---- English as primary ------------------------------------------------
+   The Hindi is optional, so English has to stand on its own rather than sit
+   underneath as a caption. These override the smaller secondary sizing. */
+
+.band-head .en.lead {
+  font-family: var(--deva), var(--serif);
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--bone);
+  margin: 0;
+}
+
+.layer .body .en {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  opacity: 0.88;
+  margin-top: 0;
+}
+
+/* When a Hindi line is present above it, the English steps back down. */
+.layer .body .hi + .en {
+  font-size: 1.02rem;
+  opacity: 0.6;
+  margin-top: 0.7rem;
+}
+
+.myth-claim-en.lead {
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.42;
+  opacity: 1;
+  margin: 0 0 2.75rem;
+}
+
+.myth-claim-en.lead b { color: var(--ember); font-weight: 400; }
+
+.myth-body .en {
+  font-size: 1.14rem;
+  line-height: 1.8;
+  opacity: 0.86;
+}
+
+.myth-body .hi + .en {
+  font-size: 1.02rem;
+  opacity: 0.58;
+}
+
+.running { font-size: 1.15rem; opacity: 0.75; }
+
+.ch-list .name small {
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.62;
+}
+
+.foot {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  opacity: 0.62;
+}
+
+.layer .tag { font-size: 1.25rem; }
+
+/* Latin-only labels keep the sans; Devanagari labels use Tiro via --mixed. */
+.layer .tag { font-family: var(--mixed); }
