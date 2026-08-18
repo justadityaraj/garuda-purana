@@ -213,3 +213,116 @@ body {
 }
 
 .opener .translit.en { color: var(--ink-faint); font-style: normal; font-size: 0.95rem; }
+
+/* ---- home -------------------------------------------------------------- */
+
+.masthead { padding: 6.5rem 0 3.5rem; }
+
+.masthead h1 {
+  font-family: var(--deva);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
+  line-height: 1.35;
+  margin: 0 0 0.75rem;
+}
+
+.masthead .sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* The myth correction is the front door, so it gets the weight. */
+.myth {
+  margin: 3.5rem 0;
+  padding: 2.25rem 0 2.25rem 1.5rem;
+  border-left: 3px solid var(--rubric);
+  background: var(--tint);
+}
+
+.myth .claim {
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 4vw, 1.7rem);
+  line-height: 1.45;
+  margin: 0 0 1.1rem;
+  padding-right: 1.5rem;
+}
+
+.myth .claim em { color: var(--rubric); font-style: italic; }
+
+.myth p {
+  font-family: var(--sans);
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  margin: 0 1.5rem 0.9rem 0;
+}
+
+.myth p:last-child { margin-bottom: 0; }
+
+.section { margin: 4rem 0; }
+
+.section h2 {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rubric);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.layers { list-style: none; margin: 0; padding: 0; }
+
+.layers li {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.layers .name { color: var(--rubric); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 0.15rem; }
+.layers .what { color: var(--ink-soft); }
+
+.chapters { list-style: none; margin: 0; padding: 0; }
+
+.chapters a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--ink);
+  transition: padding-left 0.2s ease, color 0.2s ease;
+}
+
+.chapters a:hover { padding-left: 0.6rem; color: var(--rubric); }
+
+.chapters .ch-title { font-family: var(--serif); font-style: italic; font-size: 1.02rem; }
+.chapters .ch-count { font-family: var(--sans); font-size: 0.74rem; color: var(--ink-faint); white-space: nowrap; }
+
+.tally {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding: 1.25rem 0 0;
+}
+
+.tally strong { color: var(--rubric); font-weight: 600; }
+
+.empty {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+  padding: 1rem 0;
+}

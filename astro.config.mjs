@@ -1,8 +1,10 @@
 import { defineConfig } from "astro/config";
 
-// GitHub Pages serves at /<repo>/ — drop `base` to "/" when a custom domain lands.
+// The account serves Pages from a user-level custom domain, so canonical URLs
+// resolve under dev.adityarajsingh.com rather than github.io. `base` is the
+// repo path — drop it to "/" if this ever gets its own domain.
 export default defineConfig({
-  site: "https://justadityaraj.github.io",
+  site: "https://dev.adityarajsingh.com",
   base: "/garuda-purana",
   outDir: "./dist",
 });
