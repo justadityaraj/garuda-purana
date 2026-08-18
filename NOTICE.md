@@ -44,6 +44,28 @@ It is a **retelling**, not a translation, and carries no scholarly authority. It
 is written from the Hindi with the aim of being readable, and it is always
 published alongside its source so a reader can check it.
 
+## Artwork
+
+Both images are public domain, sourced via Wikimedia Commons:
+
+- *Vishnu Carried by Garuda Through a Stormy Sky*, Kotah, 1775. Metropolitan
+  Museum of Art, Bequest of Mrs. Horace W. Frost.
+  [Commons file](https://commons.wikimedia.org/wiki/File:8b_Vishnu_Carried_by_Garuda_Through_a_Stormy_Sky_1775_Kotah_Bequest_of_Mrs._Horace_W._Frost.jpg)
+- *Garuda Vahan Vishnu*, Ravi Varma studio lithograph, c. 1910.
+  [Commons file](https://commons.wikimedia.org/wiki/File:%22Garuda_Vahan_Vishnu,%22_from_the_Ravi_Varma_studio,_c.1910%27s_Source-_ebay,_Oct._2009.jpg)
+
+Both predate 1923 and are out of copyright by age. They are reproductions of
+two-dimensional public-domain artworks, which acquire no new copyright.
+
+## Transliteration
+
+Devanagari is generated from GRETIL's IAST with
+[@indic-transliteration/sanscript](https://github.com/indic-transliteration/sanscript.js)
+via `scripts/fill-devanagari.mjs`. The converter is checked against verses whose
+Devanagari was verified by hand — run `node scripts/fill-devanagari.mjs --check`.
+It is a mechanical mapping, not an editorial judgement; where a verse carries
+hand-entered Devanagari, that is left untouched.
+
 ## Code
 
 Everything under `site/`, `schema/`, and any scripts: MIT. See [LICENSE](LICENSE).

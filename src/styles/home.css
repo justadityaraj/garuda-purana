@@ -1,0 +1,285 @@
+/* Home: cinematic and imagery-led. Always dark — these paintings are lit from
+   within and a paper ground kills them. The reading pages keep light mode. */
+
+:root {
+  --night:    #0c0a08;
+  --night-2:  #141009;
+  --bone:     #f2e9d8;
+  --bone-dim: #b0a48f;
+  --ember:    #e2703a;
+  --gold:     #d9a441;
+  --hair:     rgba(242, 233, 216, 0.14);
+
+  --serif: "Cardo", Georgia, serif;
+  --deva:  "Tiro Devanagari Sanskrit", serif;
+  --sans:  "Bricolage Grotesque", system-ui, sans-serif;
+  /* Per-glyph fallback: Latin resolves to Bricolage, Devanagari to Tiro.
+     Needed anywhere the two scripts share a line. */
+  --mixed: "Bricolage Grotesque", "Tiro Devanagari Sanskrit", system-ui, sans-serif;
+}
+
+.home {
+  background: var(--night);
+  color: var(--bone);
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+.home .shell { max-width: 62rem; margin: 0 auto; padding: 0 2rem; }
+
+/* ---- hero -------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/garuda-purana/img/garuda-kotah-1775.jpg");
+  background-size: cover;
+  background-position: 62% 32%;
+  will-change: transform;
+  transform: scale(1.16);
+}
+
+/* Two masks: one to pull the ground dark on the left where the type sits,
+   one to fade the plate into the section below so it never ends on a hard
+   edge. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(100deg, var(--night) 6%, rgba(12,10,8,0.86) 38%, rgba(12,10,8,0.28) 68%, rgba(12,10,8,0.55) 100%),
+    linear-gradient(to bottom, rgba(12,10,8,0.65) 0%, transparent 22%, transparent 62%, var(--night) 99%);
+}
+
+.hero-copy { position: relative; z-index: 2; width: 100%; }
+
+.hero h1 {
+  font-family: var(--deva);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 13vw, 8rem);
+  line-height: 1.18;
+  margin: 0;
+  letter-spacing: -0.015em;
+  text-shadow: 0 0.06em 0.5em rgba(12, 10, 8, 0.75);
+}
+
+.hero .roman {
+  font-family: var(--sans);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 2rem;
+}
+
+.hero .lede {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  line-height: 1.5;
+  color: var(--bone);
+  opacity: 0.82;
+  margin: 1.75rem 0 0;
+  max-width: 26ch;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.45;
+}
+
+/* ---- sections ---------------------------------------------------------- */
+
+.band { padding: 8rem 0; border-top: 1px solid var(--hair); }
+.band:first-of-type { border-top: none; }
+
+.band-head { margin-bottom: 3.5rem; }
+
+.band-head .hi {
+  font-family: var(--deva);
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.45;
+  margin: 0 0 0.35rem;
+  color: var(--bone);
+}
+
+.band-head .en {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin: 0;
+}
+
+/* ---- chapters ---------------------------------------------------------- */
+
+.ch-list { list-style: none; margin: 0; padding: 0; }
+
+.ch-list a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.75rem;
+  align-items: baseline;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--hair);
+  text-decoration: none;
+  color: var(--bone);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.ch-list a:hover { color: var(--gold); transform: translateX(0.7rem); }
+
+.ch-list .n {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--ember);
+  min-width: 2.5rem;
+}
+
+.ch-list .name { font-family: var(--serif); font-size: clamp(1.15rem, 2.6vw, 1.5rem); line-height: 1.4; }
+.ch-list .name small { display: block; font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone); opacity: 0.4; margin-top: 0.4rem; }
+.ch-list .tally { font-family: var(--mixed); font-size: 0.82rem; color: var(--bone); opacity: 0.42; white-space: nowrap; }
+
+.running {
+  font-family: var(--mixed);
+  font-size: 1rem;
+  color: var(--bone);
+  opacity: 0.55;
+  margin-top: 2.5rem;
+}
+
+.running b { color: var(--gold); font-weight: 600; opacity: 1; }
+
+/* ---- layers ------------------------------------------------------------ */
+
+.layer-grid { display: grid; gap: 0; }
+
+.layer {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 2rem;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+@media (max-width: 700px) {
+  .layer { grid-template-columns: 1fr; gap: 0.6rem; }
+}
+
+.layer .tag {
+  font-family: var(--deva);
+  font-size: 1.15rem;
+  color: var(--ember);
+  padding-top: 0.15rem;
+  line-height: 1.6;
+}
+
+.layer .body { font-size: 1.12rem; line-height: 1.65; }
+.layer .body .hi { font-family: var(--deva); line-height: 1.9; display: block; }
+.layer .body .en { display: block; margin-top: 0.7rem; opacity: 0.62; font-size: 0.98rem;
+  font-family: var(--sans); line-height: 1.65; }
+
+/* ---- myth -------------------------------------------------------------- */
+
+.myth-band {
+  position: relative;
+  padding: 9rem 0;
+  border-top: 1px solid var(--hair);
+  overflow: hidden;
+}
+
+.myth-plate {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(46%, 30rem);
+  z-index: 0;
+  opacity: 0.34;
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 76%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 42%, transparent 76%);
+  will-change: transform;
+}
+
+.myth-plate img { width: 100%; display: block; }
+
+@media (max-width: 900px) { .myth-plate { display: none; } }
+
+.myth-inner { position: relative; z-index: 1; max-width: 34rem; }
+
+.myth-claim {
+  font-family: var(--deva);
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+}
+
+.myth-claim b { color: var(--ember); font-weight: 400; }
+
+.myth-claim-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  line-height: 1.5;
+  opacity: 0.6;
+  margin: 0 0 2.75rem;
+}
+
+.myth-body p {
+  font-size: 1.08rem;
+  line-height: 1.78;
+  margin: 0 0 1.35rem;
+}
+
+.myth-body .hi { font-family: var(--deva); line-height: 1.95; }
+.myth-body .en { font-family: var(--sans); font-size: 0.98rem; opacity: 0.55; }
+
+/* ---- foot -------------------------------------------------------------- */
+
+.foot {
+  font-family: var(--mixed);
+  font-size: 0.8rem;
+  line-height: 1.85;
+  opacity: 0.42;
+  border-top: 1px solid var(--hair);
+  padding: 3rem 0 5rem;
+}
+
+.foot a { color: var(--gold); }
+
+/* Visible by default. The hidden state applies only once JS has confirmed
+   GSAP loaded, so no-JS and failed-JS both render a complete page. */
+.reveal, [data-rise] { opacity: 1; }
+
+.js-anim .reveal,
+.js-anim [data-rise] { opacity: 0; }
+
+.js-anim .reveal { transform: translateY(30px); }
+.js-anim [data-rise] { transform: translateY(44px); }
+
+@media print {
+  .reveal, [data-rise] { opacity: 1 !important; transform: none !important; }
+}

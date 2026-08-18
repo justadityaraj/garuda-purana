@@ -1,91 +1,225 @@
 ---
 import Base from "../layouts/Base.astro";
-import "../styles/global.css";
+import "../styles/home.css";
 
 const files = import.meta.glob("../../data/*/*.json", { eager: true });
-const KANDA_NAMES = { achar: "Achar Kanda", preta: "Preta Kanda", brahma: "Brahma Kanda" };
+const KANDA = {
+  achar: { hi: "आचार काण्ड", en: "Achar Kanda" },
+  preta: { hi: "प्रेत काण्ड", en: "Preta Kanda" },
+  brahma: { hi: "ब्रह्म काण्ड", en: "Brahma Kanda" },
+};
 const ORDER = ["achar", "preta", "brahma"];
 
 const chapters = Object.values(files).sort(
   (a, b) => ORDER.indexOf(a.kanda) - ORDER.indexOf(b.kanda) || a.chapter - b.chapter,
 );
-
 const allVerses = chapters.flatMap((c) => c.verses);
 const written = allVerses.filter((v) => (v.hinglish || "").trim()).length;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Base
-  title="Garuda Purana — an open corpus with a Hinglish retelling"
-  description="The Garuda Purana, openly published, with a plain-language Hinglish retelling. No, it is not only read after a death."
+  title="गरुड़ पुराण — Garuda Purana, openly published with a Hinglish retelling"
+  description="गरुड़ पुराण — संस्कृत, हिन्दी और हिंग्लिश में। The Garuda Purana, openly published with a plain-language Hinglish retelling."
 >
-  <div class="wrap">
-    <header class="masthead">
-      <h1>गरुड़ पुराण</h1>
-      <p class="sub">Garuda Purana — read, retold, and published as it goes</p>
-    </header>
-
-    <section class="myth">
-      <p class="claim">
-        Around <em>90%</em> of the Garuda Purana has nothing to do with death.
-      </p>
-      <p>
-        There is a widespread belief that this text is only read after a bereavement, or
-        that reading it invites misfortune. It is not true, and it has kept people away
-        from a book they are perfectly entitled to read.
-      </p>
-      <p>
-        The bulk of it is the Achar Kanda — cosmology, ethics, ayurveda, and a long
-        section on gemstones. The material about death and the afterlife sits in the
-        Preta Kanda, near the end. Most people have only ever met that portion, usually
-        through the <em>Saroddhara</em>, a sixteen-chapter digest that gets sold as though
-        it were the whole Purana. That confusion is where the myth comes from.
-      </p>
+  <div class="home">
+    <!-- hero -->
+    <section class="hero">
+      <div class="hero-art" data-parallax></div>
+      <div class="shell hero-copy">
+        <p class="roman" data-rise>Garuda Purana</p>
+        <h1 data-rise>गरुड़ पुराण</h1>
+        <p class="lede" data-rise>पढ़ा जा रहा है, दोबारा कहा जा रहा है — एक-एक श्लोक करके।</p>
+      </div>
+      <div class="scroll-cue">scroll</div>
     </section>
 
-    <section class="section">
-      <h2>Four layers, every verse</h2>
-      <ul class="layers">
-        <li><span class="name">Sanskrit</span><span class="what">The verse in Devanagari, from the Venkatesvara recension via GRETIL.</span></li>
-        <li><span class="name">IAST</span><span class="what">Roman transliteration, for anyone who does not read Devanagari.</span></li>
-        <li><span class="name">Hindi</span><span class="what">The Gita Press translation, used with their permission.</span></li>
-        <li><span class="name">Hinglish</span><span class="what">A plain-language retelling. Not a translation, and never shown instead of the Hindi — only beside it.</span></li>
-      </ul>
-    </section>
+    <div class="shell">
+      <!-- chapters -->
+      <section class="band" id="chapters">
+        <header class="band-head reveal">
+          <h2 class="hi">अध्याय</h2>
+          <p class="en">Chapters</p>
+        </header>
 
-    <section class="section">
-      <h2>Chapters</h2>
-      {chapters.length === 0 ? (
-        <p class="empty">Nothing published yet.</p>
-      ) : (
-        <ul class="chapters">
+        <ul class="ch-list">
           {chapters.map((c) => (
-            <li>
+            <li class="reveal">
               <a href={`${base}/read/${c.kanda}/${c.chapter}/`}>
-                <span class="ch-title">
-                  {KANDA_NAMES[c.kanda]} &middot; {c.chapter}
-                  {c.title?.en && ` — ${c.title.en}`}
+                <span class="n">{c.chapter}</span>
+                <span class="name">
+                  {KANDA[c.kanda].hi}
+                  <small>{KANDA[c.kanda].en}{c.title?.en ? ` — ${c.title.en}` : ""}</small>
                 </span>
-                <span class="ch-count">
-                  {c.verses.filter((v) => (v.hinglish || "").trim()).length}/{c.verses.length} retold
+                <span class="tally">
+                  {c.verses.filter((v) => (v.hinglish || "").trim()).length}/{c.verses.length}
                 </span>
               </a>
             </li>
           ))}
         </ul>
-      )}
-      <p class="tally">
-        <strong>{written}</strong> of {allVerses.length} published verses retold so far. The corpus
-        grows as the text gets read, one sitting at a time.
-      </p>
+
+        <p class="running reveal">
+          <b>{written}</b> / {allVerses.length} श्लोक अब तक हिंग्लिश में — {written} of {allVerses.length} verses
+          retold so far.
+        </p>
+      </section>
+
+      <!-- layers -->
+      <section class="band" id="layers">
+        <header class="band-head reveal">
+          <h2 class="hi">हर श्लोक, तीन रूपों में</h2>
+          <p class="en">Every verse, three ways</p>
+        </header>
+
+        <div class="layer-grid">
+          <div class="layer reveal">
+            <div class="tag">संस्कृत</div>
+            <div class="body">
+              <span class="hi">मूल श्लोक, देवनागरी में।</span>
+              <span class="en">The original verse in Devanagari.</span>
+            </div>
+          </div>
+          <div class="layer reveal">
+            <div class="tag">हिन्दी</div>
+            <div class="body">
+              <span class="hi">गीता प्रेस का अनुवाद, उनकी अनुमति से।</span>
+              <span class="en">The Gita Press translation, used with their permission.</span>
+            </div>
+          </div>
+          <div class="layer reveal">
+            <div class="tag">हिंग्लिश</div>
+            <div class="body">
+              <span class="hi">आसान भाषा में — जैसे कोई दोस्त समझा रहा हो। अनुवाद नहीं, बल्कि दोबारा कहना — और हमेशा हिन्दी के साथ, उसकी जगह नहीं।</span>
+              <span class="en">Plain language, the way a friend would explain it. A retelling, not a translation — always shown beside the Hindi, never instead of it.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- myth -->
+    <section class="myth-band">
+      <div class="myth-plate" data-parallax-slow>
+        <img src={`${base}/img/garuda-ravivarma-1910.jpg`} alt="Vishnu riding Garuda, Ravi Varma studio lithograph, c. 1910" />
+      </div>
+      <div class="shell">
+        <div class="myth-inner">
+          <p class="myth-claim reveal">
+            गरुड़ पुराण का लगभग <b>90%</b> हिस्सा मृत्यु से जुड़ा ही नहीं है।
+          </p>
+          <p class="myth-claim-en reveal">
+            Around 90% of the Garuda Purana has nothing to do with death.
+          </p>
+
+          <div class="myth-body">
+            <p class="hi reveal">
+              बहुत से लोग मानते हैं कि यह ग्रंथ सिर्फ़ किसी की मृत्यु के बाद ही पढ़ा जाता है, या इसे पढ़ना
+              अशुभ होता है। यह सच नहीं है — और इसी डर ने लोगों को एक ऐसी किताब से दूर रखा है जिसे कोई भी
+              पढ़ सकता है।
+            </p>
+            <p class="en reveal">
+              Many people believe this text is only read after a death, or that reading it invites
+              misfortune. It is not true, and that fear has kept people away from a book anyone is
+              free to read.
+            </p>
+            <p class="hi reveal">
+              इसका बड़ा हिस्सा आचार काण्ड है — सृष्टि, नीति, आयुर्वेद, और रत्नों पर एक लंबा प्रकरण।
+              मृत्यु और परलोक की बातें प्रेत काण्ड में हैं, अंत के पास। ज़्यादातर लोगों ने सिर्फ़ वही
+              हिस्सा देखा है, अक्सर <em>सारोद्धार</em> के ज़रिये — सोलह अध्यायों का एक संक्षेप, जिसे पूरा
+              पुराण समझ लिया जाता है। भ्रम वहीं से शुरू होता है।
+            </p>
+            <p class="en reveal">
+              The bulk of it is the Achar Kanda — cosmology, ethics, ayurveda, and a long section on
+              gemstones. The death material sits in the Preta Kanda, near the end. Most people have
+              only met that portion, usually through the <em>Saroddhara</em>, a sixteen-chapter digest
+              mistaken for the whole Purana. That is where the myth begins.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer class="sources">
-      Sanskrit from <a href="https://gretil.sub.uni-goettingen.de/">GRETIL</a>. Hindi from the
-      Gita Press <em>Sankshipt Garud Puran</em>, used with permission. English reference from
-      Manmatha Nath Dutt (c. 1908, public domain). Code MIT, original writing CC BY-SA 4.0 —
-      see <a href="https://github.com/justadityaraj/garuda-purana/blob/main/NOTICE.md">NOTICE.md</a>.
-      &nbsp;·&nbsp; <a href="https://github.com/justadityaraj/garuda-purana">Source on GitHub</a>
-    </footer>
+    <div class="shell">
+      <footer class="foot">
+        संस्कृत — <a href="https://gretil.sub.uni-goettingen.de/">GRETIL</a> (वेंकटेश्वर संस्करण)।
+        हिन्दी — गीता प्रेस, <em>संक्षिप्त गरुड़ पुराण</em>, अनुमति सहित।
+        <br />
+        Artwork: <em>Vishnu Carried by Garuda Through a Stormy Sky</em>, Kotah, 1775 — and a Ravi Varma
+        studio lithograph, c. 1910. Both public domain via Wikimedia Commons.
+        <br />
+        Code MIT, original writing CC BY-SA 4.0 —
+        <a href="https://github.com/justadityaraj/garuda-purana/blob/main/NOTICE.md">NOTICE.md</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/justadityaraj/garuda-purana">Source on GitHub</a>
+      </footer>
+    </div>
   </div>
+
+  <script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Content is visible by default in CSS. Only once GSAP has actually loaded
+    // do we mark the document and hide things to animate them in — so a JS
+    // failure, a blocked bundle, or reduced-motion leaves a fully readable
+    // page rather than a blank one.
+    if (!still) {
+      document.documentElement.classList.add("js-anim");
+
+      gsap.to("[data-rise]", {
+        y: 0,
+        opacity: 1,
+        duration: 1.15,
+        ease: "power3.out",
+        stagger: 0.13,
+        delay: 0.15,
+      });
+
+      // The plate drifts slower than the page, so the bird reads as holding
+      // position while the text moves past it.
+      gsap.to("[data-parallax]", {
+        yPercent: 17,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+      });
+
+      gsap.to("[data-parallax-slow]", {
+        yPercent: -13,
+        ease: "none",
+        scrollTrigger: { trigger: ".myth-band", start: "top bottom", end: "bottom top", scrub: true },
+      });
+
+      gsap.utils.toArray(".reveal").forEach((el) => {
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 92%", once: true },
+        });
+      });
+
+      gsap.to(".scroll-cue", {
+        opacity: 0,
+        duration: 0.4,
+        scrollTrigger: { trigger: ".hero", start: "top -60", toggleActions: "play none none reverse" },
+      });
+
+      // Anything still hidden after load (trigger never fired, viewport quirk,
+      // print) gets shown rather than left blank.
+      window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+        setTimeout(() => {
+          document.querySelectorAll(".reveal, [data-rise]").forEach((el) => {
+            if (getComputedStyle(el).opacity === "0") gsap.set(el, { opacity: 1, y: 0 });
+          });
+        }, 1200);
+      });
+    }
+  </script>
 </Base>

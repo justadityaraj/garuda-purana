@@ -44,7 +44,6 @@ const written = doc.verses.filter((v) => (v.hinglish || "").trim()).length;
           <div class="num">{v.verse}</div>
 
           {v.sanskrit && <p class="sanskrit">{v.sanskrit}</p>}
-          {v.iast && <p class="iast">{v.iast}</p>}
           {v.hi?.text && <p class="hindi">{v.hi.text}</p>}
 
           {(v.hinglish || "").trim() ? (

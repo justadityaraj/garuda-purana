@@ -22,14 +22,16 @@
       "verse": 2,
       "iast": "oṃ ajamajaramanantaṃ jñānarūpaṃ mahāntaṃ śivamamalamanādiṃ bhūtadehādihīnam / sakalakaraṇahīnaṃ sarvabhūtasthitaṃ taṃ harimamalamamāyaṃ sarvagaṃ vanda ekam",
       "hinglish": "",
-      "status": "draft"
+      "status": "draft",
+      "sanskrit": "ॐ अजमजरमनन्तं ज्ञानरूपं महान्तं शिवममलमनादिं भूतदेहादिहीनम् ।\nसकलकरणहीनं सर्वभूतस्थितं तं हरिममलममायं सर्वगं वन्द एकम् ॥"
     },
     {
       "id": "achar.1.3",
       "verse": 3,
       "iast": "namasyāmi hariṃ rudraṃ brahmāṇaṃ ca gaṇādhipam / devīṃ sarasvatīṃ caiva manovākkarmabhiḥ sadā",
       "hinglish": "",
-      "status": "draft"
+      "status": "draft",
+      "sanskrit": "नमस्यामि हरिं रुद्रं ब्रह्माणं च गणाधिपम् ।\nदेवीं सरस्वतीं चैव मनोवाक्कर्मभिः सदा ॥"
     }
   ]
 }
