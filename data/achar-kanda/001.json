@@ -1,0 +1,35 @@
+{
+  "text": "garuda-purana",
+  "kanda": "achar",
+  "chapter": 1,
+  "title": {
+    "iast": "etatpurāṇapravṛttihetunirūpaṇaṃ",
+    "en": "Exposition of the origin of this Purana"
+  },
+  "source_verse_count": 35,
+  "verses": [
+    {
+      "id": "achar.1.1",
+      "verse": 1,
+      "sanskrit": "ॐ नारायणं नमस्कृत्य नरं चैव नरोत्तमम् ।\nदेवीं सरस्वतीं चैव ततो जयमुदीरयेत् ॥",
+      "iast": "oṃ nārāyaṇaṃ namaskṛtya naraṃ caiva narottamam / devīṃ sarasvatīṃ caiva tato jayamudīrayet",
+      "hinglish": "",
+      "notes": "The standard mangalacharana that opens most Puranas.",
+      "status": "draft"
+    },
+    {
+      "id": "achar.1.2",
+      "verse": 2,
+      "iast": "oṃ ajamajaramanantaṃ jñānarūpaṃ mahāntaṃ śivamamalamanādiṃ bhūtadehādihīnam / sakalakaraṇahīnaṃ sarvabhūtasthitaṃ taṃ harimamalamamāyaṃ sarvagaṃ vanda ekam",
+      "hinglish": "",
+      "status": "draft"
+    },
+    {
+      "id": "achar.1.3",
+      "verse": 3,
+      "iast": "namasyāmi hariṃ rudraṃ brahmāṇaṃ ca gaṇādhipam / devīṃ sarasvatīṃ caiva manovākkarmabhiḥ sadā",
+      "hinglish": "",
+      "status": "draft"
+    }
+  ]
+}

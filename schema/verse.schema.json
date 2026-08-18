@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/justadityaraj/garuda-purana/schema/verse.schema.json",
+  "title": "Chapter file",
+  "description": "One file per chapter. Verse records key off the reading edition (Gita Press Sankshipt); Sanskrit from GRETIL is an enrichment layered on where it maps, and absent where it does not.",
+  "type": "object",
+  "required": ["text", "kanda", "chapter", "verses"],
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Which scripture. Present so other texts can share this schema without a rewrite.",
+      "examples": ["garuda-purana"]
+    },
+    "kanda": { "enum": ["achar", "preta", "brahma"] },
+    "chapter": { "type": "integer", "minimum": 1 },
+    "title": {
+      "type": "object",
+      "properties": {
+        "iast": { "type": "string" },
+        "hi": { "type": "string" },
+        "en": { "type": "string" }
+      }
+    },
+    "source_verse_count": {
+      "type": "integer",
+      "description": "Verse count in the GRETIL/Venkatesvara recension, for reference. May differ from verses.length — the reading edition is abridged."
+    },
+    "verses": { "type": "array", "items": { "$ref": "#/$defs/verse" } }
+  },
+  "$defs": {
+    "verse": {
+      "type": "object",
+      "required": ["id", "verse", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(achar|preta|brahma)\\.[0-9]+\\.[0-9]+$",
+          "examples": ["achar.1.1"]
+        },
+        "verse": { "type": "integer", "minimum": 1 },
+        "sanskrit": { "type": "string", "description": "Devanagari. Optional — absent where the reading edition has no mapped counterpart." },
+        "iast": { "type": "string", "description": "Roman transliteration." },
+        "hi": { "$ref": "#/$defs/attributed" },
+        "en": { "$ref": "#/$defs/attributed" },
+        "hinglish": { "type": "string", "description": "Plain-language retelling. Human-written, never AI-generated." },
+        "notes": { "type": "string" },
+        "status": {
+          "enum": ["draft", "reviewed"],
+          "description": "draft = hinglish absent or unfinished. reviewed = read back against the Hindi and stands."
+        }
+      }
+    },
+    "attributed": {
+      "type": "object",
+      "required": ["text", "source"],
+      "properties": {
+        "text": { "type": "string" },
+        "source": {
+          "enum": ["gita-press-sankshipt", "dutt-1908", "gretil-venkatesvara"],
+          "description": "Provenance is queryable, not folklore. See NOTICE.md."
+        }
+      }
+    }
+  }
+}
