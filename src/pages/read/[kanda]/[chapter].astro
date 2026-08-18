@@ -1,0 +1,68 @@
+---
+import Base from "../../../layouts/Base.astro";
+import "../../../styles/global.css";
+
+export async function getStaticPaths() {
+  const files = import.meta.glob("../../../../data/*/*.json", { eager: true });
+  return Object.values(files).map((doc) => ({
+    params: { kanda: doc.kanda, chapter: String(doc.chapter) },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+const KANDA_NAMES = {
+  achar: "Achar Kanda",
+  preta: "Preta Kanda",
+  brahma: "Brahma Kanda",
+};
+const written = doc.verses.filter((v) => (v.hinglish || "").trim()).length;
+---
+
+<Base
+  title={`${KANDA_NAMES[doc.kanda]} · Chapter ${doc.chapter} — Garuda Purana`}
+  description={doc.title?.en ?? "Garuda Purana"}
+>
+  <div class="wrap">
+    <header class="opener">
+      <p class="kicker">{KANDA_NAMES[doc.kanda]} &middot; Chapter {doc.chapter}</p>
+      {doc.title?.hi
+        ? <h1>{doc.title.hi}</h1>
+        : doc.title?.iast && <h1 class="latin">{doc.title.iast}</h1>}
+      {doc.title?.hi && doc.title?.iast && <p class="translit">{doc.title.iast}</p>}
+      {doc.title?.en && <p class="translit en">{doc.title.en}</p>}
+      <div class="meta">
+        <span>{doc.verses.length} verses here</span>
+        {doc.source_verse_count && <span>{doc.source_verse_count} in the Venkatesvara recension</span>}
+        <span>{written} retold</span>
+      </div>
+    </header>
+
+    <main class="verses">
+      {doc.verses.map((v, i) => (
+        <article class="verse" style={`animation-delay:${Math.min(i * 70, 700)}ms`}>
+          <div class="num">{v.verse}</div>
+
+          {v.sanskrit && <p class="sanskrit">{v.sanskrit}</p>}
+          {v.iast && <p class="iast">{v.iast}</p>}
+          {v.hi?.text && <p class="hindi">{v.hi.text}</p>}
+
+          {(v.hinglish || "").trim() ? (
+            <div class="hinglish">
+              <span class="label">Hinglish</span>
+              {v.hinglish}
+            </div>
+          ) : (
+            <p class="pending">Not retold yet &mdash; this verse is still being read.</p>
+          )}
+        </article>
+      ))}
+    </main>
+
+    <footer class="sources">
+      Sanskrit from <a href="https://gretil.sub.uni-goettingen.de/">GRETIL</a> (Venkatesvara
+      recension). Hindi from the Gita Press <em>Sankshipt Garud Puran</em>, used with permission.
+      The Hinglish is a retelling, not a translation &mdash; read it beside the Hindi, never instead of it.
+    </footer>
+  </div>
+</Base>
